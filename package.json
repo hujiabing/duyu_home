@@ -13,6 +13,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "amfe-flexible": "^2.2.1",
+    "postcss": "^8.4.21",
+    "postcss-pxtorem": "^6.0.0",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.2",
     "vite": "^4.1.4"

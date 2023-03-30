@@ -7,12 +7,11 @@
 </template>
 
 <style scoped>
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+html, body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
+/* @media (min-width: 1024px) {
+
+} */
 </style>
