@@ -5,11 +5,27 @@
     <div class="img-3"></div>
     <div class="img-4"></div>
     <div class="img-5"></div>
+    <div class="right-container">
+      <div
+        class="change-la"
+        :class="isCN ? 'change-select' : 'change-unselect'"
+        @click="isCN = true"
+      >
+        <div>{{ !isCN ? "中文" : "CN" }}</div>
+      </div>
+      <div
+        class="change-la"
+        :class="!isCN ? 'change-select' : 'change-unselect'"
+        @click="isCN = false"
+      >
+        <div>EN</div>
+      </div>
+    </div>
     <div class="name">
       <div class="logo"></div>
-      <div class="logo-name"><div>杭州毒鱼科技有限公司</div></div>
-      <div class="des">
-        是一个致力于开发超休闲游戏，抖音、微信小游戏，VR游戏的工作团队，团队经验丰富，已有各类游戏产品数百款。
+      <div class="logo-name" v-show="isCN"><div>杭州毒鱼科技有限公司</div></div>
+      <div class="des" :class="isCN ? 'des-1' : 'des-2'">
+        {{ info.des }}
       </div>
       <div class="row-log">
         <div class="icon-13"></div>
@@ -18,16 +34,43 @@
       </div>
     </div>
     <div class="bottom-container">
-      <div class="tel">合作请联系：Allen</div>
-      <div class="mail">邮箱：allenwithlee@126.com</div>
+      <div class="tel">{{ info.contact }}</div>
+      <div class="mail">{{ info.mail }}</div>
       <div class="address">
-        地址：浙江省杭州市滨江区西兴街道聚工路11号5幢3层309室
+        {{ info.address }}
       </div>
     </div>
   </div>
 </template>
 <script >
-export default {};
+export default {
+  data() {
+    return {
+      infoCN: {
+        address: "地址：浙江省杭州市滨江区西兴街道聚工路11号5幢3层309室",
+        mail: "邮箱：allenwithlee@126.com",
+        contact: "合作请联系：Allen",
+        des: "是一个致力于开发超休闲游戏，抖音、微信小游戏，VR游戏的工作团队，团队经验丰富，已有各类游戏产品数百款。",
+      },
+      infoEN: {
+        address:
+          "Address: Room 309, 3rd Floor, Building 5, No. 11, Jugong Road, Xixing Street, Binjiang District, Hangzhou City, Zhejiang Province",
+        mail: "E-mail：allenwithlee@126.com",
+        contact: "Contact：Allen",
+        des: "We create premium games",
+      },
+      isCN: true,
+      iconCN: new URL("@/assets/image/icon_cn.png", import.meta.url),
+      iconEN: new URL("@/assets/image/icon_en.png", import.meta.url),
+      iconCH: new URL("@/assets/image/icon_chease.png", import.meta.url),
+    };
+  },
+  computed: {
+    info() {
+      return this.isCN ? this.infoCN : this.infoEN;
+    },
+  },
+};
 </script>
 <style lang="scss">
 .pager-container {
@@ -99,6 +142,37 @@ export default {};
     background-position: center;
     background-repeat: no-repeat;
   }
+  .right-container {
+    position: absolute;
+    z-index: 3;
+    right: 4vw;
+    top: 2vh;
+    display: flex;
+    width: 50px;
+    justify-content: space-between;
+    align-items: center;
+    .change-la {
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+
+      div {
+        white-space: nowrap;
+        font-size: 6;
+      }
+    }
+    .change-select {
+      border: 1px solid white;
+    }
+    .change-unselect {
+      border: 0px solid transparent;
+    }
+  }
   .name {
     position: absolute;
     top: 2.533vh;
@@ -129,7 +203,7 @@ export default {};
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      div{
+      div {
         font-weight: 600;
       }
     }
@@ -139,9 +213,17 @@ export default {};
       font-weight: 500;
       font-size: 9px;
     }
+    .des-1 {
+      font-size: 9px;
+      font-weight: 600;
+    }
+    .des-2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
     .row-log {
       display: flex;
-      margin-top: 3vh;
+      margin-top: 5vh;
       width: 30vw;
       justify-content: space-between;
       font-size: 8px;
@@ -156,14 +238,6 @@ export default {};
         display: flex;
         flex-direction: column;
         position: relative;
-        &::after{
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          bottom: -12px;
-          white-space: nowrap;
-          content: "Stump Me";
-        }
       }
       .icon-12 {
         width: 15vh;
@@ -173,14 +247,6 @@ export default {};
         background-position: center;
         background-repeat: no-repeat;
         position: relative;
-        &::after{
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          bottom: -12px;
-          white-space: nowrap;
-          content: "Pin Rescue";
-        }
       }
       .icon-11 {
         width: 15vh;
@@ -190,14 +256,6 @@ export default {};
         background-position: center;
         background-repeat: no-repeat;
         position: relative;
-        &::after{
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          bottom: -12px;
-          white-space: nowrap;
-          content: "Spider King";
-        }
       }
     }
   }
@@ -205,16 +263,16 @@ export default {};
     position: absolute;
     bottom: 4vh;
     left: 2vw;
-    width: 60px;
+    width: 45vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 10px;
     color: black;
- 
+    flex-basis: 0;
     flex-wrap: wrap;
-    font-family:sans-serif;
+    font-family: sans-serif;
 
     .tel {
       padding: 3px 10px;
@@ -222,15 +280,18 @@ export default {};
       border-radius: 10px;
       white-space: nowrap;
       font-weight: 600;
+      text-align: center;
     }
 
     .mail {
       white-space: nowrap;
       font-weight: 600;
+      text-align: center;
     }
     .address {
-      white-space: nowrap;
+      width: 45vw;
       font-weight: 600;
+      text-align: center;
     }
   }
 }
