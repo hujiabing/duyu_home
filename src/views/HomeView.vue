@@ -39,6 +39,7 @@
       <div class="address">
         {{ info.address }}
       </div>
+      <a class="bah" href="https://beian.miit.gov.cn/">浙ICP备2023003886号-1</a>
     </div>
   </div>
 </template>
@@ -261,7 +262,7 @@ export default {
   }
   .bottom-container {
     position: absolute;
-    bottom: 4vh;
+    bottom: 1vh;
     left: 2vw;
     width: 45vw;
     display: flex;
@@ -273,7 +274,11 @@ export default {
     flex-basis: 0;
     flex-wrap: wrap;
     font-family: sans-serif;
-
+    .bah{
+      font-size: 6px;
+      font-weight: 300;
+      white-space: nowrap;
+    }
     .tel {
       padding: 3px 10px;
       background-color: rgb(254, 199, 52);
